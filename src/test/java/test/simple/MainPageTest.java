@@ -37,7 +37,16 @@ public class MainPageTest {
 	public void buySomeTShirt() throws Exception {
 		
 	}
-	
+
+	@Test
+	public void navigationTabTest() throws Exception {
+		WebDriver driver = Setup.getDriver();
+		MainPage mainPage=new MainPage();
+		mainPage.hoverWomenTab()
+				.hoverDressTab()
+				.hoverTshirtTab()
+				.openWomenPageFromTab();
+	}
 	
 
 }

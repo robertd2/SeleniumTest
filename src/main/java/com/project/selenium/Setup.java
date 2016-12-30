@@ -11,6 +11,7 @@ public class Setup {
 		if(driver==null){
 			System.setProperty("webdriver.chrome.driver", "target/chromedriver.exe");
 	        driver = new ChromeDriver();
+	        driver.manage().window().maximize();
 		}
 		return driver;
 	}
