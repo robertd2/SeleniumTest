@@ -8,6 +8,7 @@ public class MainPage implements IMainPage {
 	
 	public MainPage(){
 		driver =Setup.getDriver();
+		Setup.loadMainPage();
 	}
 	
 	public void logInUser(User user) {
