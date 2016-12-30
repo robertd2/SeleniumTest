@@ -15,10 +15,12 @@ import com.project.selenium.Setup;
 public class MainPageTest {
 	
 	private WebDriver driver;
+	private MainPage mainPage;
 	
 	@Before
     public void setUp() throws Exception {
-		Setup.getDriver();
+		driver = Setup.getDriver();
+		mainPage = new MainPage();
     }
 	
 	@After
@@ -28,10 +30,11 @@ public class MainPageTest {
 	
 	@Test
 	public void doMainPageTest() throws Exception {
-		MainPage mainPage=new MainPage();
-		WebDriver driver = Setup.getDriver();
-		
-		WebElement bodyContent = driver.findElement(By.xpath("body"));
+		WebElement bodyContent = driver.findElement(By.xpath("body"));		
+	}
+	
+	@Test
+	public void buySomeTShirt() throws Exception {
 		
 	}
 	
