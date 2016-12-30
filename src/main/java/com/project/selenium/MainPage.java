@@ -10,6 +10,8 @@ import com.project.selenium.purchase.SinglePurchase;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class MainPage implements IMainPage {
 	
 	private WebDriver driver;
@@ -69,7 +71,7 @@ public class MainPage implements IMainPage {
 
 	public void waitUntilElementPresent(By byCss, int timeInSec){
 		List<WebElement> elements = driver.findElements(byCss);
-		int timeOut=0;
+		int timeOut = 0;
 		boolean displayed = false;
 
 		if (!elements.isEmpty())
@@ -86,5 +88,6 @@ public class MainPage implements IMainPage {
 			if (!elements.isEmpty())
 				displayed = elements.get(0).isDisplayed();
 		}
+		assertTrue("Element not found", displayed);
 	}
 }
