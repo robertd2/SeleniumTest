@@ -30,13 +30,21 @@ public abstract class BasePage {
 	}
 	
 	public void logIn(User user) {
+		if(driver.findElements(singInButton).size()==0){
+			System.out.println("Can't log in. Maybe you are already logged?");
+		}else{
 		clickSingInBtn();
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.loginUser(user);
+		}
 	}
 
-	public void logOut() {
+	public void logOut(){
+		if(driver.findElements(singOutButton).size()==0){
+			System.out.println("Can't logout. Are you logged?");
+		}else{
 		driver.findElement(singOutButton).click();
+		}
 	}	
 	
 
