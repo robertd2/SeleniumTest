@@ -30,7 +30,7 @@ public class MainPageTest {
 	
 	@Test
 	public void doMainPageTest() throws Exception {
-		WebElement bodyContent = driver.findElement(By.xpath("body"));		
+		WebElement bodyContent = driver.findElement(By.xpath("html"));
 	}
 	
 	@Test
