@@ -1,6 +1,7 @@
 package com.project.selenium;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public abstract class BasePage {
 	protected static final By openedDressMenuTab = By.cssSelector("ul.menu-content>li.sfHover>a[title=\"Dresses\"]");
 	protected static final By singInButton = By.cssSelector("a[title='Log in to your customer account']");
 	protected static final By singOutButton = By.cssSelector("a[title='Log me out']");
+	protected static final By contactUsLink = By.cssSelector("a[title='Contact Us']");
 	
 	public BasePage(){
 		driver = Setup.getDriver();
@@ -100,9 +102,15 @@ public abstract class BasePage {
 			if (!elements.isEmpty())
 				displayed = elements.get(0).isDisplayed();
 		}
+		assertTrue("Element not found", displayed);
 	}
 	
 	public void clickSingInBtn(){
 		driver.findElement(singInButton).click();
+	}
+
+	public ContactUsPage clickContactUsBtn() {
+		driver.findElement(contactUsLink).click();
+		return new ContactUsPage();
 	}
 }
