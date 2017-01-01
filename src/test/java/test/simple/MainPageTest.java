@@ -38,7 +38,6 @@ public class MainPageTest {
 
 	@Test
 	public void navigationTabTest() throws Exception {
-		WebDriver driver = Setup.getDriver();
 		MainPage mainPage=new MainPage();
 		mainPage.hoverWomenTab()
 				.hoverDressTab()

@@ -15,7 +15,7 @@ public class ContactUsTests {
 
     @AfterClass
     public static void tearDown() throws Exception {
-//        Setup.quit();
+        Setup.quit();
     }
 
     @Test
