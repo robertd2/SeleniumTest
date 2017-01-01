@@ -66,4 +66,20 @@ public class ContactUsTests {
                     .clickSendButton()
                     .checkSuccessMessage("Your message has been successfully sent to our team.");
     }
+
+    @Test
+    public void testKeyboardNavigation(){
+            MainPage mainPage=new MainPage();
+            File file = new File("./target/example.txt");
+            String path = file.getAbsolutePath();
+            mainPage.clickContactUsBtn()
+                    .selectSubjectAndPressTabKey()
+                    .enterEmailAndPressTabKey("wrong mail")
+                    .enterEmailAndPressTabKey("mail@domain.com")
+                    .enterOrderReferenceAndPressTab("Order reference")
+                    .sendFileAndPressTab(path)
+                    .enterMessageAndPressTab("Message")
+                    .clickSendButtonByKey()
+                    .checkSuccessMessage("Your message has been successfully sent to our team.");
+    }
 }
