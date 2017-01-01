@@ -6,6 +6,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
+
 public class ContactUsTests {
 
     @BeforeClass
@@ -54,12 +56,13 @@ public class ContactUsTests {
     @Test
     public void testSendFile(){
             MainPage mainPage=new MainPage();
+            File file = new File("./target/example.txt");
+            String path = file.getAbsolutePath();
             mainPage.clickContactUsBtn()
                     .enterMessage("New Message")
                     .enterEmail("address@domain.com")
                     .selectWebmasterSubject()
-                    //TODO change to relative path if possible
-                    .sendFile("c:\\example.txt")
+                    .sendFile(path)
                     .clickSendButton()
                     .checkSuccessMessage("Your message has been successfully sent to our team.");
     }
