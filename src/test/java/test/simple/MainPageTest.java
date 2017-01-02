@@ -1,26 +1,23 @@
 package test.simple;
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
 import com.project.selenium.MainPage;
 import com.project.selenium.Setup;
+import com.project.selenium.purchase.PurchasePage;
 
 public class MainPageTest {
 	
 	private WebDriver driver;
 	private MainPage mainPage;
+	private PurchasePage purchasePage;
 	
 	@Before
     public void setUp() throws Exception {
 		driver = Setup.getDriver();
 		mainPage = new MainPage();
+		purchasePage = new PurchasePage();
     }
 	
 	@After
@@ -29,19 +26,12 @@ public class MainPageTest {
     }
 	
 	@Test
-	public void doMainPageTest() throws Exception {
-		WebElement bodyContent = driver.findElement(By.xpath("html"));
-	}
-	
-	@Test
 	public void buySomeTShirt() throws Exception {
-		
+		purchasePage.clickOnTShirtBtn();
 	}
 
 	@Test
 	public void navigationTabTest() throws Exception {
-		WebDriver driver = Setup.getDriver();
-		MainPage mainPage=new MainPage();
 		mainPage.hoverWomenTab()
 				.hoverDressTab()
 				.hoverTshirtTab()

@@ -20,7 +20,7 @@ public abstract class BasePage {
 	protected static final By openedDressMenuTab = By.cssSelector("ul.menu-content>li.sfHover>a[title=\"Dresses\"]");
 	protected static final By singInButton = By.cssSelector("a[title='Log in to your customer account']");
 	protected static final By singOutButton = By.cssSelector("a[title='Log me out']");
-	
+		
 	public BasePage(){
 		driver = Setup.getDriver();
 	}
@@ -97,4 +97,9 @@ public abstract class BasePage {
 	public void clickSingInBtn(){
 		driver.findElement(singInButton).click();
 	}
+	
+	protected void clickOnTShirtBtn() {
+		
+	}
+	
 }
