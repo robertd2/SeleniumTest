@@ -114,8 +114,4 @@ public abstract class BasePage {
 		return new ContactUsPage();
 	}
 	
-	protected void clickOnTShirtBtn() {
-		
-	}
-	
 }
