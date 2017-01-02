@@ -37,6 +37,4 @@ public class MainPageTest {
 				.hoverTshirtTab()
 				.openWomenPageFromTab();
 	}
-	
-
 }

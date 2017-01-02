@@ -81,6 +81,31 @@
         <version>4.12</version>
         <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-api</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-support</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-chrome-driver</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-chrome-driver</artifactId>
+          <version>RELEASE</version>
+      </dependency>
   </dependencies>
   
   <build>
@@ -99,6 +124,31 @@
                         <goal>integration-test</goal>
                         <goal>verify</goal>
                     </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.0.2</version>
+            <executions>
+                <execution>
+                    <id>copy-resources</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/target</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>src/resources</directory>
+                                <includes>
+                                    <include>example.txt</include>
+                                </includes>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
                 </execution>
             </executions>
         </plugin>

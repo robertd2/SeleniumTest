@@ -57,5 +57,18 @@ public class LoginTest {
 	
 	}
 	
+	@Test
+	public void invalidLoginTest() throws Exception{
+		MainPage mainPage=new MainPage();
+		WebDriver driver = Setup.getDriver();		
+		
+		mainPage.logIn(new User("k782713@mvrht.co","12345"));
+		assertEquals("Authentication failed.",driver.findElement(By.cssSelector("#center_column > div.alert.alert-danger > ol > li")).getText());
+		
+		mainPage.logIn(new User("k782713@mvrht.com","1234"));
+		assertEquals("Invalid password.",driver.findElement(By.cssSelector("#center_column > div.alert.alert-danger > ol > li")).getText());
+		
+	}
+	
 
 }

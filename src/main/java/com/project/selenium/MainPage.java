@@ -7,5 +7,5 @@ public class MainPage extends BasePage {
 		Setup.loadMainPage();
 		verifyTitle("My Store");
 	}
-	
+
 }
