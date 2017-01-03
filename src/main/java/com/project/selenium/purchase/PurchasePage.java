@@ -10,9 +10,5 @@ public class PurchasePage extends MainPage {
 		super();
 	}
 	
-	@Override
-	public void clickOnTShirtBtn() {
-		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
-		tshirtMenuButton.click();
-	}
+
 }

@@ -14,8 +14,7 @@ import test.reader.strategy.CsvReaderStrategy;
 public class ReaderTest {
 
 	@Test
-	public void readerTest() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void readerTest() {
 		FileReader<User> reader = null;
 		reader = new FileReader<User>("./target/exampledata.csv",
 				new CsvReaderStrategy(";"),

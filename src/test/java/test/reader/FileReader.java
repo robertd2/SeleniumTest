@@ -52,7 +52,7 @@ public class FileReader<T>{
 		}
 	}
 	
-	public void listObjects() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	public void listObjects(){
 		System.out.println("Objects of the file: "+filePath);
 		for(T elem : convertDataIntoListOfObjects()){
 			System.out.println(elem);
