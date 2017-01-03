@@ -12,6 +12,7 @@ import com.project.selenium.User;
 
 public class LoginTest {
 	
+	protected static final By errorMsg = By.cssSelector("#center_column > div.alert.alert-danger > ol > li");
 	
 	@BeforeClass
     public static void setUp() throws Exception {
@@ -63,10 +64,10 @@ public class LoginTest {
 		WebDriver driver = Setup.getDriver();		
 		
 		mainPage.logIn(new User("k782713@mvrht.co","12345"));
-		assertEquals("Authentication failed.",driver.findElement(By.cssSelector("#center_column > div.alert.alert-danger > ol > li")).getText());
+		assertEquals("Expected error message: Authentication failed. It was: "+driver.findElement(errorMsg).getText(),"Authentication failed.",driver.findElement(errorMsg).getText());
 		
 		mainPage.logIn(new User("k782713@mvrht.com","1234"));
-		assertEquals("Invalid password.",driver.findElement(By.cssSelector("#center_column > div.alert.alert-danger > ol > li")).getText());
+		assertEquals("Expected error message: Invalid password. It was: "+driver.findElement(errorMsg).getText(),"Invalid password.",driver.findElement(errorMsg).getText());
 		
 	}
 	
