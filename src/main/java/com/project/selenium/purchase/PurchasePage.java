@@ -16,40 +16,43 @@ public class PurchasePage extends MainPage {
 	private static final By addToCartButton = By.cssSelector("div.button-container > a.ajax_add_to_card_button");
 	private static final By continueShoppingButton = By.cssSelector("div.button-container span.continue span");
 	private static final By proceedToCheckoutButton = By.cssSelector("div.button-container a.btn[title='Proceed to checkout']");
-	
+
 	public PurchasePage() {
 		super();
 	}
 	
-	public void clickOnTShirtBtn() {
+	public boolean checkIfTShirtTabExists() {
+		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
 		return tshirtMenuButton == null ? false : true;
 	}
-	
+
 	public String getProductListTitle() {
 		WebElement productListTitle = driver.findElement(productListHeading);
 		return productListTitle == null ? "" : productListTitle.getText();
 	}
-	
+
 	public PurchasePage clickOnTShirtBtn() {
+		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
+		tshirtMenuButton.click();
 		return this;
 	}
-	
+
 	public int getNumberOfTShirtElements() {
 		List<WebElement> list = driver.findElements(productList);
 		return list.isEmpty() ? 0 : list.size();
 	}
-	
+
 	public boolean isFirstProductAvailable() {
 		List<WebElement> list = driver.findElements(productList);
 		String result = null;
-		
+
 		if (!list.isEmpty()) {
 			WebElement product = list.get(0).findElement(productAvailability);
 			result = product.getText();
 		}
 		return result == null ? false : true;
 	}
-	
+
 	public WebElement getFirstAvailableProduct() {
 		List<WebElement> list = driver.findElements(productList);
 		WebElement result = null;
@@ -65,7 +68,7 @@ public class PurchasePage extends MainPage {
 		}
 		return result;
 	}
-	
+
 	public PurchasePage moveMouseOverFirstAvailableProduct() {
 		List<WebElement> list = driver.findElements(productList);
 		if (!list.isEmpty()) {
@@ -73,19 +76,20 @@ public class PurchasePage extends MainPage {
 		}
 		return this;
 	}
-	
+
 	public void clickAddToCartButton() {
 		WebElement addToCard = driver.findElement(addToCartButton);
 		addToCard.click();
-		driver.switchTo().activeElement();		
+		driver.switchTo().activeElement();
 	}
-	
+
 	public int checkIfContinueShoppingButtonsIsPresent() {
 		List<WebElement> list = driver.findElements(continueShoppingButton);
 		return list.size();
 	}
-	
+
 	public boolean isContinueShoppingButtonVisible() {
 		WebElement button = driver.findElement(continueShoppingButton);
 		return button.isDisplayed();
+	}
 }
