@@ -13,47 +13,44 @@ public class LoginPanel {
 	private WebElement form;
 	private WebElement emailTF;
 	private WebElement passwdTF;
-	private WebElement submitBTN;	
-	
-	LoginPanel(){
-		driver= Setup.getDriver();
+	private WebElement submitBTN;
+
+	LoginPanel() {
+		driver = Setup.getDriver();
 		assertTrue(isLoginFormOnPage(driver));
 		setFields(driver);
 	}
-	
-	public static boolean isLoginFormOnPage(WebDriver driver){
-		boolean result=false;
-		try{
-		WebElement form = driver.findElement(By.cssSelector("form#login_form"));
-		if(form!=null){
-			if(form.findElement(By.cssSelector("input#email"))!=null &&
-					form.findElement(By.cssSelector("input#passwd"))!=null &&
-					form.findElement(By.cssSelector("button#SubmitLogin"))!=null){
-				result = true;
+
+	public static boolean isLoginFormOnPage(WebDriver driver) {
+		boolean result = false;
+		try {
+			WebElement form = driver.findElement(By.cssSelector("form#login_form"));
+			if (form != null) {
+				if (form.findElement(By.cssSelector("input#email")) != null
+						&& form.findElement(By.cssSelector("input#passwd")) != null
+						&& form.findElement(By.cssSelector("button#SubmitLogin")) != null) {
+					result = true;
+				}
 			}
-		}
-		}catch (NoSuchElementException e) {
-		result =false;	
+		} catch (NoSuchElementException e) {
+			result = false;
 		}
 		return result;
 	}
-	
+
 	public void setFields(WebDriver driver) {
 		form = driver.findElement(By.cssSelector("form#login_form"));
 		emailTF = form.findElement(By.cssSelector("input#email"));
 		passwdTF = form.findElement(By.cssSelector("input#passwd"));
 		submitBTN = form.findElement(By.cssSelector("button#SubmitLogin"));
-	}	
-	
-	
-	public void loginUser(User user){
+	}
+
+	public void loginUser(User user) {
 		emailTF.clear();
 		passwdTF.clear();
 		emailTF.sendKeys(user.getUsername());
 		passwdTF.sendKeys(user.getPassword());
 		submitBTN.click();
 	}
-
-
 
 }

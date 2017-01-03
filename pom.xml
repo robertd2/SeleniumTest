@@ -150,6 +150,7 @@
                                 <directory>src/resources</directory>
                                 <includes>
                                     <include>example.txt</include>
+                                    <include>exampledata.csv</include>
                                 </includes>
                                 <filtering>true</filtering>
                             </resource>

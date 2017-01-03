@@ -11,9 +11,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public abstract class BasePage {
-	
+
 	public WebDriver driver;
-	
+
 	protected static final By womenMenuTab = By.cssSelector("ul.menu-content>li>a[title=\"Women\"]");
 	protected static final By dressMenuTab = By.cssSelector("ul.menu-content>li>a[title=\"Dresses\"]");
 	protected static final By tshirtMenuTab = By.cssSelector("ul.menu-content>li>a[title=\"T-shirts\"]");
@@ -22,76 +22,67 @@ public abstract class BasePage {
 	protected static final By singInButton = By.cssSelector("a[title='Log in to your customer account']");
 	protected static final By singOutButton = By.cssSelector("a[title='Log me out']");
 	protected static final By contactUsLink = By.cssSelector("a[title='Contact Us']");
-		
-	public BasePage(){
+
+	public BasePage() {
 		driver = Setup.getDriver();
 	}
-	
-	public void verifyTitle(String title){
-		assertEquals(title,driver.getTitle());
+
+	public void verifyTitle(String title) {
+		assertEquals(title, driver.getTitle());
 	}
-	
+
 	public void logIn(User user) {
-		if(driver.findElements(singInButton).size()==0){
-			System.out.println("Can't log in. Maybe you are already logged?");
-		}else{
-		clickSingInBtn();
-		LoginPanel loginPanel = new LoginPanel();
+		assertTrue("Can't log in. Maybe you are already logged?", driver.findElements(singInButton).size() == 0);
+
+		LoginPanel loginPanel = clickSingInBtn();
 		loginPanel.loginUser(user);
-		}
+
 	}
 
-	public void logOut(){
-		if(driver.findElements(singOutButton).size()==0){
-			System.out.println("Can't logout. Are you logged?");
-		}else{
+	public void logOut() {
+		assertTrue("Can't logout. Are you logged?", driver.findElements(singOutButton).size() == 0);
 		driver.findElement(singOutButton).click();
-		}
-	}	
-	
 
-	public BasePage hoverWomenTab(){
+	}
+
+	public BasePage hoverWomenTab() {
 		WebElement womenMenuButton = driver.findElement(womenMenuTab);
-		new Actions(driver).moveToElement(womenMenuButton)
-				.perform();
-		waitUntilElementPresent(openedWomenMenuTab,5);
+		new Actions(driver).moveToElement(womenMenuButton).perform();
+		waitUntilElementPresent(openedWomenMenuTab, 5);
 
 		return this;
 	}
 
-	public BasePage hoverDressTab(){
+	public BasePage hoverDressTab() {
 		WebElement dressMenuButton = driver.findElement(dressMenuTab);
-		new Actions(driver).moveToElement(dressMenuButton)
-				.perform();
-		waitUntilElementPresent(openedDressMenuTab,5);
+		new Actions(driver).moveToElement(dressMenuButton).perform();
+		waitUntilElementPresent(openedDressMenuTab, 5);
 
 		return this;
 	}
 
-	public BasePage hoverTshirtTab(){
+	public BasePage hoverTshirtTab() {
 		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
-		new Actions(driver).moveToElement(tshirtMenuButton)
-				.perform();
+		new Actions(driver).moveToElement(tshirtMenuButton).perform();
 
 		return this;
 	}
 
-	public WomanPage openWomenPageFromTab(){
+	public WomanPage openWomenPageFromTab() {
 		WebElement womenMenuButton = driver.findElement(womenMenuTab);
-		new Actions(driver).moveToElement(womenMenuButton).click()
-				.perform();
+		new Actions(driver).moveToElement(womenMenuButton).click().perform();
 		return new WomanPage();
 	}
-	
-	public void waitUntilElementPresent(By byCss, int timeInSec){
+
+	public void waitUntilElementPresent(By byCss, int timeInSec) {
 		List<WebElement> elements = driver.findElements(byCss);
-		int timeOut=0;
+		int timeOut = 0;
 		boolean displayed = false;
 
 		if (!elements.isEmpty())
 			displayed = elements.get(0).isDisplayed();
 
-		while(!displayed && timeOut<timeInSec){
+		while (!displayed && timeOut < timeInSec) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -104,14 +95,15 @@ public abstract class BasePage {
 		}
 		assertTrue("Element not found", displayed);
 	}
-	
-	public void clickSingInBtn(){
+
+	public LoginPanel clickSingInBtn() {
 		driver.findElement(singInButton).click();
+		return new LoginPanel();
 	}
 
 	public ContactUsPage clickContactUsBtn() {
 		driver.findElement(contactUsLink).click();
 		return new ContactUsPage();
 	}
-	
+
 }
