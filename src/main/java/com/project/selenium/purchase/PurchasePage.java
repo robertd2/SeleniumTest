@@ -21,7 +21,6 @@ public class PurchasePage extends MainPage {
 		super();
 	}
 	
-	@Override
 	public void clickOnTShirtBtn() {
 		return tshirtMenuButton == null ? false : true;
 	}
