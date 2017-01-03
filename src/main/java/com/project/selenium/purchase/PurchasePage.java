@@ -13,7 +13,7 @@ public class PurchasePage extends MainPage {
 	private static final By productListHeading = By.cssSelector("span.cat-name");
 	private static final By productList = By.cssSelector("ul.product_list div.product-container");
 	private static final By productAvailability = By.cssSelector("ul.product_list span.available-now");
-	private static final By addToCartButton = By.cssSelector("div.button-container > a.ajax_add_to_card_button");
+	private static final By addToCartButton = By.cssSelector("div.button-container > a.ajax_add_to_cart_button");
 	private static final By continueShoppingButton = By.cssSelector("div.button-container span.continue span");
 	private static final By proceedToCheckoutButton = By.cssSelector("div.button-container a.btn[title='Proceed to checkout']");
 
@@ -21,9 +21,6 @@ public class PurchasePage extends MainPage {
 		super();
 	}
 	
-<<<<<<< HEAD
-
-=======
 	public boolean checkIfTShirtTabExists() {
 		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
 		return tshirtMenuButton == null ? false : true;
@@ -61,9 +58,7 @@ public class PurchasePage extends MainPage {
 		WebElement result = null;
 		if (!list.isEmpty()) {
 			for (WebElement element : list) {
-				System.out.println(element.getTagName() + " : " + element.getText());
 				WebElement availability = element.findElement(productAvailability);
-				System.out.println(availability.getText());
 				if (availability.getText().equals("In stock")) {
 					result = element;
 				}
@@ -75,25 +70,37 @@ public class PurchasePage extends MainPage {
 	public PurchasePage moveMouseOverFirstAvailableProduct() {
 		List<WebElement> list = driver.findElements(productList);
 		if (!list.isEmpty()) {
-			new Actions(driver).moveToElement(list.get(0));
+			new Actions(driver).moveToElement(list.get(0)).perform();
 		}
 		return this;
 	}
-
-	public void clickAddToCartButton() {
-		WebElement addToCard = driver.findElement(addToCartButton);
-		addToCard.click();
-		driver.switchTo().activeElement();
-	}
-
-	public int checkIfContinueShoppingButtonsIsPresent() {
-		List<WebElement> list = driver.findElements(continueShoppingButton);
-		return list.size();
-	}
-
-	public boolean isContinueShoppingButtonVisible() {
-		WebElement button = driver.findElement(continueShoppingButton);
+	
+	public boolean isAddToCartButtonDisplayed() {
+		WebElement button = driver.findElement(addToCartButton);
 		return button.isDisplayed();
 	}
->>>>>>> f7904395cc17a37aeb87f4e41d8f277139b389e2
+
+	public PurchasePage clickAddToCartButton() {
+		WebElement button = driver.findElement(addToCartButton);
+		button.click();
+		return this;
+	}
+	
+	public WebElement moveToActiveElement() {
+		WebElement active = driver.switchTo().activeElement();
+		return active;
+	}
+
+	public boolean isContinueShoppingButtonDisplayed() {
+		WebElement button = driver.findElement(continueShoppingButton);
+		waitUntilElementPresent(continueShoppingButton, 5);
+		return button.isDisplayed();
+	}
+
+	public boolean isProceedToCheckoutButtonDisplayed() {
+		WebElement button = driver.findElement(proceedToCheckoutButton);
+		waitUntilElementPresent(proceedToCheckoutButton, 5);
+		return button.isDisplayed();
+	}
+	
 }
