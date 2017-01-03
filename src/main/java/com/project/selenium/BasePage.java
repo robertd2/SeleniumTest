@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -22,6 +23,11 @@ public abstract class BasePage {
 	protected static final By singInButton = By.cssSelector("a[title='Log in to your customer account']");
 	protected static final By singOutButton = By.cssSelector("a[title='Log me out']");
 	protected static final By contactUsLink = By.cssSelector("a[title='Contact Us']");
+	//search box
+	protected static final By searchbox = By.cssSelector("input#search_query_top");
+	protected static final By submitSearchbutton = By.cssSelector("button[name='submit_search']");
+	protected static final By searchSuggestionBox = By.cssSelector("div.ac_results");
+	protected static final By searchSuggestionFirstElement = By.cssSelector("div.ac_results>ul>li:first-child");
 
 	public BasePage() {
 		driver = Setup.getDriver();
@@ -49,7 +55,6 @@ public abstract class BasePage {
 		WebElement womenMenuButton = driver.findElement(womenMenuTab);
 		new Actions(driver).moveToElement(womenMenuButton).perform();
 		waitUntilElementPresent(openedWomenMenuTab, 5);
-
 		return this;
 	}
 
@@ -57,14 +62,12 @@ public abstract class BasePage {
 		WebElement dressMenuButton = driver.findElement(dressMenuTab);
 		new Actions(driver).moveToElement(dressMenuButton).perform();
 		waitUntilElementPresent(openedDressMenuTab, 5);
-
 		return this;
 	}
 
 	public BasePage hoverTshirtTab() {
 		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
 		new Actions(driver).moveToElement(tshirtMenuButton).perform();
-
 		return this;
 	}
 
@@ -104,6 +107,41 @@ public abstract class BasePage {
 	public ContactUsPage clickContactUsBtn() {
 		driver.findElement(contactUsLink).click();
 		return new ContactUsPage();
+	}
+
+	public void searchProduct(String productName){
+		driver.findElement(searchbox).clear();
+		driver.findElement(searchbox).sendKeys(productName);
+	}
+
+	public SearchPage clickSearchButton(){
+		driver.findElement(submitSearchbutton).click();
+		return new SearchPage();
+	}
+
+	public SearchPage confirmSearchByEnterKey(){
+		driver.findElement(searchbox).sendKeys(Keys.ENTER);
+		return new SearchPage();
+	}
+
+	public SearchPage searchProductAndConfirm(String productName){
+		searchProduct(productName);
+		return confirmSearchByEnterKey();
+	}
+
+	public void verifySearchSuggestion(String searchedProduct){
+		waitUntilElementPresent(searchSuggestionBox,5);
+		String firstElement = driver.findElement(searchSuggestionFirstElement).getText().toLowerCase();
+		assertTrue("First element (" + firstElement + ") doesn't contain entered text: " + searchedProduct,
+				firstElement.contains(searchedProduct));
+	}
+
+	public SearchPage openFirstElementFromSuggestionBox(){
+		waitUntilElementPresent(searchSuggestionBox,5);
+		String firstElement = driver.findElement(searchSuggestionFirstElement).getText();
+		String nameOfFirstElement = firstElement.substring(firstElement.indexOf('>') + 2);
+		driver.findElement(searchSuggestionFirstElement).click();
+		return new SearchPage(nameOfFirstElement);
 	}
 
 }

@@ -15,6 +15,8 @@ import static org.junit.Assert.assertTrue;
 public class ContactUsPage extends BasePage{
 
     private WebDriver driver;
+    private String title = "Contact us - My Store";
+
     private static final By subjectHeadingDropDown = By.cssSelector("select#id_contact");
     private static final By emailAddressInput = By.cssSelector("input#email");
     private static final By orderReferenceInput = By.cssSelector("input#id_order");
@@ -30,6 +32,7 @@ public class ContactUsPage extends BasePage{
 
     public ContactUsPage(){
         driver = Setup.getDriver();
+        verifyTitle(title);
     }
 
     public ContactUsPage enterEmail(String mail){
@@ -126,7 +129,7 @@ public class ContactUsPage extends BasePage{
             assertTrue("Email field validation failed. Element should has class form-ok",
                     !driver.findElements(validatedPositiveEmailField).isEmpty());
         else
-            assertTrue("Email field validation failed. Element should has class form-ok",
+            assertTrue("Email field validation failed. Element should has class form-error",
                     !driver.findElements(validatedNegativeEmailField).isEmpty());
         return this;
     }
@@ -143,8 +146,7 @@ public class ContactUsPage extends BasePage{
 
     public ContactUsPage sendFileAndPressTab(String path){
         sendFile(path);
-        Actions action = new Actions(driver);
-        action.sendKeys(driver.findElement(orderReferenceInput),Keys.TAB).sendKeys(Keys.TAB).perform();
+        new Actions(driver).sendKeys(driver.findElement(orderReferenceInput),Keys.TAB).sendKeys(Keys.TAB).perform();
         WebElement activeElement = driver.switchTo().activeElement();
         assertTrue("Wrong field is active. Should be " + messageTextBox.toString()
                         + ". But is  " + activeElement.toString(),
