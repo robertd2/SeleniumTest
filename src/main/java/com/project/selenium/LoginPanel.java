@@ -15,7 +15,7 @@ public class LoginPanel {
 	private WebElement passwdTF;
 	private WebElement submitBTN;
 
-	LoginPanel() {
+	public LoginPanel() {
 		driver = Setup.getDriver();
 		assertTrue(isLoginFormOnPage(driver));
 		setFields(driver);
@@ -48,7 +48,7 @@ public class LoginPanel {
 	public void loginUser(User user) {
 		emailTF.clear();
 		passwdTF.clear();
-		emailTF.sendKeys(user.getUsername());
+		emailTF.sendKeys(user.getEmail());
 		passwdTF.sendKeys(user.getPassword());
 		submitBTN.click();
 	}

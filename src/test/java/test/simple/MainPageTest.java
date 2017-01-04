@@ -6,19 +6,17 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import com.project.selenium.MainPage;
 import com.project.selenium.Setup;
-import com.project.selenium.purchase.PurchasePage;
 
 public class MainPageTest {
 
+	@SuppressWarnings("unused")
 	private WebDriver driver;
 	private MainPage mainPage;
-	private PurchasePage purchasePage;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		driver = Setup.getDriver();
-		mainPage = new MainPage();
-		purchasePage = new PurchasePage();
+		mainPage = new MainPage();		
 	}
 
 	@After

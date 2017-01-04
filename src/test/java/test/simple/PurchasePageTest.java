@@ -6,16 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
 import com.project.selenium.Setup;
 import com.project.selenium.purchase.PurchasePage;
+import com.project.selenium.purchase.ShoppingBasketPage;
 
 public class PurchasePageTest {
-	
-	private static final By addItemToCartWindow = By.cssSelector("div#layer_cart > div.clearfix");
-	
+		
 	@BeforeClass
     public static void setUp() throws Exception {
         Setup.getDriver();        
@@ -25,53 +21,39 @@ public class PurchasePageTest {
     public static void tearDown() throws Exception {
         Setup.quit();
     }
-    
-    @Test
-    public void checkTShirtTab() {
-    	PurchasePage purchasePage = new PurchasePage();
-    	assertTrue(purchasePage.checkIfTShirtTabExists());
-    }
-    
-    @Test
-    public void checkIfListOfTShirtsShows() {
-    	PurchasePage purchasePage = new PurchasePage();    	
-    	assertTrue("T-SHIRTS".equals(purchasePage.clickOnTShirtBtn().getProductListTitle().trim()));
-    }
-    
+ 
     @Test
     public void checkIfTShirtListNotEmpty() {
     	PurchasePage purchasePage = new PurchasePage();    	
-    	assertTrue(purchasePage.clickOnTShirtBtn().getNumberOfTShirtElements() > 0);
+    	assertTrue(purchasePage.clickTShirtButton().getNumberOfProductElements() > 0);
     }
-    
-    @Test
-    public void isFirstProductAvailable() {
-    	PurchasePage purchasePage = new PurchasePage();
-    	assertTrue(purchasePage.clickOnTShirtBtn().isFirstProductAvailable());
-    }
-    
-    @Test
-    public void showFirstAvailableProduct() {
-    	PurchasePage purchasePage = new PurchasePage();
-    	WebElement fAvProd = purchasePage.clickOnTShirtBtn().getFirstAvailableProduct();
-    	System.out.println(fAvProd.getText());
-    }
-    
+              
     @Test
     public void isAddToCartButtonAvailable() {
     	PurchasePage purchasePage = new PurchasePage();
-    	assertTrue("AddToCart is available to click", purchasePage.clickOnTShirtBtn()
-    				.moveMouseOverFirstAvailableProduct()
-    				.isAddToCartButtonDisplayed());    	
+    	boolean isAddToCartAvailable = purchasePage.clickTShirtButton()
+				.moveMouseOverFirstAvailableProduct()
+				.isAddToCartButtonDisplayed();
+    	assertTrue("AddToCart should be available to click, but is: ", isAddToCartAvailable);    	
     }
-    
+            
     @Test
-    public void isCheckoutAvailable() {
+    public void buyFirstAvailableTShirt() {
     	PurchasePage purchasePage = new PurchasePage();
-    	assertTrue("ProceedToCheckout is available to click", purchasePage.clickOnTShirtBtn()
+    	ShoppingBasketPage shoppingBasketPage = purchasePage.clickTShirtButton()
     			.moveMouseOverFirstAvailableProduct()
-    			.clickAddToCartButton()    			
-    			.isProceedToCheckoutButtonDisplayed());
+    			.clickAddToCartButton()
+    			.clickProceedToCheckoutButton();
+    	String confirmation = shoppingBasketPage.clickProceedToCheckoutButton()
+    			.performLogIn("k782713@mvrht.com","12345")
+    			.clickProceedToCheckoutButtonAtAddress()
+    			.tickTermsCheckbox()
+    			.clickProceedToCheckoutButtonAtShipping()
+    			.clickBankWirePayment()
+    			.clickConfirmOrder()
+    			.getConfirmation();
+    	assertEquals("I expected: \"Your order on My Store is complete.\", I received " 
+    			+ confirmation + ", however.", "Your order on My Store is complete.", confirmation);
     }
 
 }
