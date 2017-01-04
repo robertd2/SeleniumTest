@@ -36,6 +36,20 @@ public abstract class BasePage {
 	public void verifyTitle(String title) {
 		assertEquals(title, driver.getTitle());
 	}
+	
+	protected WebElement getElementIfExists(By element) {
+		List<WebElement> elementList = driver.findElements(element);
+		WebElement result = null;
+		if (!elementList.isEmpty() && elementList.size() == 1) {
+			result = elementList.get(0);
+		}
+		return result;
+	}
+	
+	protected List<WebElement> getListOfElements(By element) {
+		List<WebElement> elementList = driver.findElements(element);
+		return elementList;
+	}
 
 	public void logIn(User user) {
 		assertTrue("Can't log in. Maybe you are already logged?", driver.findElements(singInButton).size() == 0);

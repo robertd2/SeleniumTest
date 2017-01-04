@@ -10,9 +10,7 @@ import com.project.selenium.MainPage;
 
 public class PurchasePage extends MainPage {
 
-	private static final By productListHeading = By.cssSelector("span.cat-name");
 	private static final By productList = By.cssSelector("ul.product_list div.product-container");
-	private static final By productAvailability = By.cssSelector("ul.product_list span.available-now");
 	private static final By addToCartButton = By.cssSelector("div.button-container > a.ajax_add_to_cart_button");
 	private static final By continueShoppingButton = By.cssSelector("div.button-container span.continue span");
 	private static final By proceedToCheckoutButton = By.cssSelector("div.button-container a.btn[title='Proceed to checkout']");
@@ -21,54 +19,23 @@ public class PurchasePage extends MainPage {
 		super();
 	}
 	
-	public boolean checkIfTShirtTabExists() {
-		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
-		return tshirtMenuButton == null ? false : true;
-	}
-
-	public String getProductListTitle() {
-		WebElement productListTitle = driver.findElement(productListHeading);
-		return productListTitle == null ? "" : productListTitle.getText();
-	}
-
-	public PurchasePage clickOnTShirtBtn() {
-		WebElement tshirtMenuButton = driver.findElement(tshirtMenuTab);
-		tshirtMenuButton.click();
+	protected PurchasePage clickElement(By element) {
+		WebElement webElement = getElementIfExists(element);
+		webElement.click();
 		return this;
 	}
+	
+	public PurchasePage clickTShirtButton() {
+		return clickElement(tshirtMenuTab);
+	}
 
-	public int getNumberOfTShirtElements() {
-		List<WebElement> list = driver.findElements(productList);
+	public int getNumberOfProductElements() {
+		List<WebElement> list = getListOfElements(productList);
 		return list.isEmpty() ? 0 : list.size();
 	}
-
-	public boolean isFirstProductAvailable() {
-		List<WebElement> list = driver.findElements(productList);
-		String result = null;
-
-		if (!list.isEmpty()) {
-			WebElement product = list.get(0).findElement(productAvailability);
-			result = product.getText();
-		}
-		return result == null ? false : true;
-	}
-
-	public WebElement getFirstAvailableProduct() {
-		List<WebElement> list = driver.findElements(productList);
-		WebElement result = null;
-		if (!list.isEmpty()) {
-			for (WebElement element : list) {
-				WebElement availability = element.findElement(productAvailability);
-				if (availability.getText().equals("In stock")) {
-					result = element;
-				}
-			}
-		}
-		return result;
-	}
-
+		
 	public PurchasePage moveMouseOverFirstAvailableProduct() {
-		List<WebElement> list = driver.findElements(productList);
+		List<WebElement> list = getListOfElements(productList);
 		if (!list.isEmpty()) {
 			new Actions(driver).moveToElement(list.get(0)).perform();
 		}
@@ -76,31 +43,31 @@ public class PurchasePage extends MainPage {
 	}
 	
 	public boolean isAddToCartButtonDisplayed() {
-		WebElement button = driver.findElement(addToCartButton);
-		return button.isDisplayed();
+		WebElement element = getElementIfExists(addToCartButton);
+		return element.isDisplayed();
 	}
 
 	public PurchasePage clickAddToCartButton() {
-		WebElement button = driver.findElement(addToCartButton);
-		button.click();
-		return this;
-	}
-	
-	public WebElement moveToActiveElement() {
-		WebElement active = driver.switchTo().activeElement();
-		return active;
+		return clickElement(addToCartButton);
 	}
 
 	public boolean isContinueShoppingButtonDisplayed() {
-		WebElement button = driver.findElement(continueShoppingButton);
+		WebElement button = getElementIfExists(continueShoppingButton);
 		waitUntilElementPresent(continueShoppingButton, 5);
 		return button.isDisplayed();
 	}
 
 	public boolean isProceedToCheckoutButtonDisplayed() {
-		WebElement button = driver.findElement(proceedToCheckoutButton);
+		WebElement button = getElementIfExists(proceedToCheckoutButton);
 		waitUntilElementPresent(proceedToCheckoutButton, 5);
 		return button.isDisplayed();
+	}
+	
+	public ShoppingBasketPage clickProceedToCheckoutButton() {
+		WebElement button = getElementIfExists(proceedToCheckoutButton);
+		waitUntilElementPresent(proceedToCheckoutButton, 5);
+		button.click();
+		return new ShoppingBasketPage();
 	}
 	
 }
