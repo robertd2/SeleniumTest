@@ -1,8 +1,6 @@
 package test.simple;
 
-
 import com.project.selenium.MainPage;
-import com.project.selenium.SearchPage;
 import com.project.selenium.Setup;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
