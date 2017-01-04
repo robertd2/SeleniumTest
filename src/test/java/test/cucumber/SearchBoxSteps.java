@@ -1,29 +1,16 @@
 package test.cucumber;
 
 import com.project.selenium.MainPage;
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
+import com.project.selenium.SearchPage;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.WebDriver;
-import static com.project.selenium.Setup.getDriver;
 
 public class SearchBoxSteps {
 
-    public static WebDriver driver;
     private MainPage mainPage;
-
-    @Before
-    public void setUp(){
-        driver = getDriver();
-    }
-
-    @After
-    public void cleanUp(){
-        driver.close();
-    }
+    private SearchPage searchPage;
 
     @Given("^User is on Main Page$")
     public void openMainPage() {
@@ -38,5 +25,15 @@ public class SearchBoxSteps {
     @Then("^Appears suggestion under Searchbox with \"([^\"]*)\"$")
     public void appearsSuggestionBox(String searchedProduct) {
         mainPage.verifySearchSuggestion(searchedProduct);
+    }
+
+    @And("^Open first element from suggestion box$")
+    public void openFirstElementFromSuggestionBox() {
+        searchPage = mainPage.openFirstElementFromSuggestionBox();
+    }
+
+    @Then("^Opens page with \"([^\"]*)\"$")
+    public void opensPageWithProduct(String productName){
+        searchPage.verifyOpenedProductPage(productName);
     }
 }

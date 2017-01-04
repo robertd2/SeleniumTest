@@ -14,6 +14,7 @@ public class SearchPage extends BasePage{
     private static final By warningMessageBox = By.cssSelector("p.alert-warning");
     private static final By searchedProductNameBox = By.cssSelector("h1.product-listing>span.lighter");
     private static final By searchedProductList = By.cssSelector("ul.product_list >li");
+    private static final By singleProductName = By.cssSelector("h1[itemprop='name']");
 
     public SearchPage(){
         driver = Setup.getDriver();
@@ -54,5 +55,10 @@ public class SearchPage extends BasePage{
         return this;
     }
 
-
+    public SearchPage verifyOpenedProductPage(String productName){
+        String currentProductName = driver.findElement(singleProductName).getText();
+        assertTrue("Product name (" + currentProductName + ") doesn't contain searched product: " + productName,
+                currentProductName.toLowerCase().contains(productName.toLowerCase()));
+        return this;
+    }
 }
