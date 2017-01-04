@@ -14,6 +14,10 @@ public class PurchasePage extends MainPage {
 	private static final By addToCartButton = By.cssSelector("div.button-container > a.ajax_add_to_cart_button");
 	private static final By continueShoppingButton = By.cssSelector("div.button-container span.continue span");
 	private static final By proceedToCheckoutButton = By.cssSelector("div.button-container a.btn[title='Proceed to checkout']");
+	private static final By casualDressesButton = By.cssSelector("div.block_content a[title*='dress for every day']");
+	private static final By eveningDressesButton = By.cssSelector("div.block_content a[title*='different dresses']");
+	private static final By summerDressesButton = By.cssSelector("div.block_content a[title*='dress for summer']");
+	private static final By topsButton = By.cssSelector("div.block_content a[title*='blouses']");
 
 	public PurchasePage() {
 		super();
@@ -25,8 +29,77 @@ public class PurchasePage extends MainPage {
 		return this;
 	}
 	
+	//choosing a category of product to buy
+	
+	/**
+	 * Presses a T-Shirt button to move to t-shirts list
+	 * @return the same page with t-shirts list content
+	 */
 	public PurchasePage clickTShirtButton() {
 		return clickElement(tshirtMenuTab);
+	}
+	
+	/**
+	 * Presses a Dresses button to move to all dresses list
+	 * @return the same page with all dresses listed
+	 */
+	public PurchasePage clickDressesButton() {
+		return clickElement(dressMenuTab);
+	}
+	
+	/**
+	 * Presses a "Casual Dresses" button to move to casual dresses list
+	 * @return the same page with casual dresses list content
+	 */
+	private PurchasePage clickCasualDressesButton() {
+		return clickElement(casualDressesButton);
+	}
+	
+	/**
+	 * Presses a "Evening Dresses" button to move to evening dresses list
+	 * @return the same page with evening dresses list content
+	 */
+	private PurchasePage clickEveningDressesButton() {
+		return clickElement(eveningDressesButton);
+	}
+	
+	/**
+	 * Presses a "Summer Dresses" button to move to summer dresses list
+	 * @return the same page with summer dresses list content
+	 */
+	private PurchasePage clickSummerDressesButton() {
+		return clickElement(summerDressesButton);
+	}
+	
+	/**
+	 * Opens a page with Casual Dresses
+	 * @return
+	 */
+	public PurchasePage goToCasualDressesList() {
+		clickDressesButton().waitUntilElementPresent(casualDressesButton, 5);
+		return clickCasualDressesButton();
+	}
+	
+	/**
+	 * Opens a page with Evening Dresses
+	 * @return
+	 */
+	public PurchasePage goToEveningDressesList() {
+		clickDressesButton().waitUntilElementPresent(eveningDressesButton, 5);
+		return clickEveningDressesButton();
+	}
+	
+	/**
+	 * Opens a page with Summer Dresses
+	 * @return
+	 */
+	public PurchasePage goToSummerDressesList() {
+		clickDressesButton().waitUntilElementPresent(summerDressesButton, 5);
+		return clickSummerDressesButton();
+	}
+	
+	public PurchasePage clickTopsButton() {
+		return clickElement(topsButton);
 	}
 
 	public int getNumberOfProductElements() {
