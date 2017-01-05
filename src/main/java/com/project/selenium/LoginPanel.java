@@ -20,7 +20,7 @@ public class LoginPanel {
 	private static final By passInput = By.cssSelector("input#passwd");
 	private static final By submitBtn = By.cssSelector("button#SubmitLogin");
 
-	LoginPanel() {
+	public LoginPanel() {
 		driver = Setup.getDriver();
 		assertTrue(isLoginFormOnPage(driver));
 		setFields(driver);

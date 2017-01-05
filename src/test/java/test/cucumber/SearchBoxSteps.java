@@ -22,7 +22,7 @@ public class SearchBoxSteps {
         mainPage.searchProduct(searchedProduct);
     }
 
-    @Then("^Appears suggestion under Searchbox with \"([^\"]*)\"$")
+    @Then("^Appears suggestion under SearchBox with \"([^\"]*)\"$")
     public void appearsSuggestionBox(String searchedProduct) {
         mainPage.verifySearchSuggestion(searchedProduct);
     }
