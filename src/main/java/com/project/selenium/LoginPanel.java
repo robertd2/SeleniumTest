@@ -15,7 +15,12 @@ public class LoginPanel {
 	private WebElement passwdTF;
 	private WebElement submitBTN;
 
-	public LoginPanel() {
+	private static final By loginForm = By.cssSelector("form#login_form");
+	private static final By emialInput = By.cssSelector("input#email");
+	private static final By passInput = By.cssSelector("input#passwd");
+	private static final By submitBtn = By.cssSelector("button#SubmitLogin");
+
+	LoginPanel() {
 		driver = Setup.getDriver();
 		assertTrue(isLoginFormOnPage(driver));
 		setFields(driver);
@@ -24,7 +29,7 @@ public class LoginPanel {
 	public static boolean isLoginFormOnPage(WebDriver driver) {
 		boolean result = false;
 		try {
-			WebElement form = driver.findElement(By.cssSelector("form#login_form"));
+			WebElement form = driver.findElement(loginForm);
 			if (form != null) {
 				if (form.findElement(By.cssSelector("input#email")) != null
 						&& form.findElement(By.cssSelector("input#passwd")) != null
@@ -39,10 +44,10 @@ public class LoginPanel {
 	}
 
 	public void setFields(WebDriver driver) {
-		form = driver.findElement(By.cssSelector("form#login_form"));
-		emailTF = form.findElement(By.cssSelector("input#email"));
-		passwdTF = form.findElement(By.cssSelector("input#passwd"));
-		submitBTN = form.findElement(By.cssSelector("button#SubmitLogin"));
+		form = driver.findElement(loginForm);
+		emailTF = form.findElement(emialInput);
+		passwdTF = form.findElement(passInput);
+		submitBTN = form.findElement(submitBtn);
 	}
 
 	public void loginUser(User user) {

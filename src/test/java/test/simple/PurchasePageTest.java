@@ -23,9 +23,10 @@ public class PurchasePageTest {
     }
  
     @Test
-    public void checkIfTShirtListNotEmpty() {
-    	PurchasePage purchasePage = new PurchasePage();    	
-    	assertTrue(purchasePage.clickTShirtButton().getNumberOfProductElements() > 0);
+    public void checkListOfTShirts() {
+    	PurchasePage purchasePage = new PurchasePage();
+    	int numberOfProducts = purchasePage.clickTShirtButton().getNumberOfProductElements();
+    	assertTrue(numberOfProducts > 0);
     }
               
     @Test
@@ -54,6 +55,34 @@ public class PurchasePageTest {
     			.getConfirmation();
     	assertEquals("I expected: \"Your order on My Store is complete.\", I received " 
     			+ confirmation + ", however.", "Your order on My Store is complete.", confirmation);
+    }
+    
+    @Test
+    public void checkListOfCasualDresses() {
+    	PurchasePage purchasePage = new PurchasePage();
+    	int numberOfProducts = purchasePage.goToCasualDressesList().getNumberOfProductElements();
+    	assertEquals("Expected 1 product, found: " + numberOfProducts, 1, numberOfProducts);
+    }
+    
+    @Test
+    public void checkListOfEveningDresses() {
+    	PurchasePage purchasePage = new PurchasePage();
+    	int numberOfProducts = purchasePage.goToEveningDressesList().getNumberOfProductElements();
+    	assertEquals("Expected 1 product, found: " + numberOfProducts, 1, numberOfProducts);
+    }
+    
+    @Test
+    public void checkListOfSummerDresses() {
+    	PurchasePage purchasePage = new PurchasePage();
+    	int numberOfProducts = purchasePage.goToSummerDressesList().getNumberOfProductElements();
+    	assertEquals("Expected 3 products, found: " + numberOfProducts, 3, numberOfProducts);
+    }
+    
+    @Test
+    public void checkListOfAllDresses() {
+    	PurchasePage purchasePage = new PurchasePage();
+    	int numberOfProducts = purchasePage.clickDressesButton().getNumberOfProductElements();
+    	assertEquals("Expected 5 products, found: " + numberOfProducts, 5, numberOfProducts);
     }
 
 }
