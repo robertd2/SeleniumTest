@@ -13,7 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 
 public abstract class BasePage {
 
-	public WebDriver driver;
+	public static WebDriver driver;
 
 	protected static final By womenMenuTab = By.cssSelector("ul.menu-content>li>a[title=\"Women\"]");
 	protected static final By dressMenuTab = By.cssSelector("ul.menu-content>li>a[title=\"Dresses\"]");
@@ -23,7 +23,7 @@ public abstract class BasePage {
 	protected static final By singInButton = By.cssSelector("a[title='Log in to your customer account']");
 	protected static final By singOutButton = By.cssSelector("a[title='Log me out']");
 	protected static final By contactUsLink = By.cssSelector("a[title='Contact Us']");
-	//search box
+	// search box
 	protected static final By searchbox = By.cssSelector("input#search_query_top");
 	protected static final By submitSearchbutton = By.cssSelector("button[name='submit_search']");
 	protected static final By searchSuggestionBox = By.cssSelector("div.ac_results");
@@ -52,7 +52,7 @@ public abstract class BasePage {
 	}
 
 	public void logIn(User user) {
-		assertTrue("Can't log in. Maybe you are already logged?", driver.findElements(singInButton).size() == 0);
+		assertTrue("Can't log in. Maybe you are already logged?", driver.findElements(singInButton).size() == 1);
 
 		LoginPanel loginPanel = clickSingInBtn();
 		loginPanel.loginUser(user);
@@ -60,9 +60,17 @@ public abstract class BasePage {
 	}
 
 	public void logOut() {
-		assertTrue("Can't logout. Are you logged?", driver.findElements(singOutButton).size() == 0);
+		assertTrue("Can't logout. Are you logged?", driver.findElements(singOutButton).size() == 1);
 		driver.findElement(singOutButton).click();
 
+	}
+
+	public RegisterPanel gotoRegisterPanel() {
+		if (!(driver.findElements(singOutButton).size() == 0)) {
+			logOut();
+		}
+		driver.findElement(singInButton).click();
+		return new RegisterPanel();
 	}
 
 	public BasePage hoverWomenTab() {
@@ -91,7 +99,11 @@ public abstract class BasePage {
 		return new WomanPage();
 	}
 
-	public void waitUntilElementPresent(By byCss, int timeInSec) {
+	public static void waitUntilElementPresent(By byCss, int timeInSec) {
+		waitUntilElementPresent(byCss, timeInSec, true);
+	}
+
+	public static void waitUntilElementPresent(By byCss, int timeInSec, boolean check) {
 		List<WebElement> elements = driver.findElements(byCss);
 		int timeOut = 0;
 		boolean displayed = false;
@@ -110,7 +122,10 @@ public abstract class BasePage {
 			if (!elements.isEmpty())
 				displayed = elements.get(0).isDisplayed();
 		}
-		assertTrue("Element not found", displayed);
+		if (check) {
+			assertTrue("Element not found", displayed);
+		}
+
 	}
 
 	public LoginPanel clickSingInBtn() {
@@ -123,35 +138,35 @@ public abstract class BasePage {
 		return new ContactUsPage();
 	}
 
-	public void searchProduct(String productName){
+	public void searchProduct(String productName) {
 		driver.findElement(searchbox).clear();
 		driver.findElement(searchbox).sendKeys(productName);
 	}
 
-	public SearchPage clickSearchButton(){
+	public SearchPage clickSearchButton() {
 		driver.findElement(submitSearchbutton).click();
 		return new SearchPage();
 	}
 
-	public SearchPage confirmSearchByEnterKey(){
+	public SearchPage confirmSearchByEnterKey() {
 		driver.findElement(searchbox).sendKeys(Keys.ENTER);
 		return new SearchPage();
 	}
 
-	public SearchPage searchProductAndConfirm(String productName){
+	public SearchPage searchProductAndConfirm(String productName) {
 		searchProduct(productName);
 		return confirmSearchByEnterKey();
 	}
 
-	public void verifySearchSuggestion(String searchedProduct){
-		waitUntilElementPresent(searchSuggestionBox,5);
+	public void verifySearchSuggestion(String searchedProduct) {
+		waitUntilElementPresent(searchSuggestionBox, 5);
 		String firstElement = driver.findElement(searchSuggestionFirstElement).getText().toLowerCase();
 		assertTrue("First element (" + firstElement + ") doesn't contain entered text: " + searchedProduct,
 				firstElement.contains(searchedProduct));
 	}
 
-	public SearchPage openFirstElementFromSuggestionBox(){
-		waitUntilElementPresent(searchSuggestionBox,5);
+	public SearchPage openFirstElementFromSuggestionBox() {
+		waitUntilElementPresent(searchSuggestionBox, 5);
 		String firstElement = driver.findElement(searchSuggestionFirstElement).getText();
 		String nameOfFirstElement = firstElement.substring(firstElement.indexOf('>') + 2);
 		driver.findElement(searchSuggestionFirstElement).click();

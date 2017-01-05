@@ -1,13 +1,18 @@
 Feature: SearchBox search
 
-  Scenario: Displaying search suggestion under SearchBox
+  Background:
     Given User is on Main Page
-    When User enter product "dress" into SearchBox
-    Then Appears suggestion under Searchbox with "dress"
+
+  Scenario Outline: Displaying search suggestion under SearchBox
+    When User enter product "<product>" into SearchBox
+    Then Appears suggestion under SearchBox with "<product>"
+    Examples:
+    | product |
+    | dress   |
+    | blouse  |
 
   Scenario: Open first element from suggestion under SearchBox
-    Given User is on Main Page
     When User enter product "dress" into SearchBox
-    And Appears suggestion under Searchbox with "dress"
+    And Appears suggestion under SearchBox with "dress"
     And Open first element from suggestion box
     Then Opens page with "dress"

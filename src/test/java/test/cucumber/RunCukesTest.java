@@ -8,8 +8,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "cucumber"
-        ,glue={"test.cucumber"}
+        features = "cucumber",
+        glue={"test.cucumber"},
+        format = {"pretty", "html:target/cucumber"}
 )
 public class RunCukesTest {
     @AfterClass
