@@ -11,6 +11,8 @@ import com.project.selenium.MainPage;
 public class PurchasePage extends MainPage {
 
 	private static final By productList = By.cssSelector("ul.product_list div.product-container");
+	
+	//------------------------------buttons
 	private static final By addToCartButton = By.cssSelector("div.button-container > a.ajax_add_to_cart_button");
 	private static final By continueShoppingButton = By.cssSelector("div.button-container span.continue span");
 	private static final By proceedToCheckoutButton = By.cssSelector("div.button-container a.btn[title='Proceed to checkout']");
@@ -18,6 +20,37 @@ public class PurchasePage extends MainPage {
 	private static final By eveningDressesButton = By.cssSelector("div.block_content a[title*='different dresses']");
 	private static final By summerDressesButton = By.cssSelector("div.block_content a[title*='dress for summer']");
 	private static final By topsButton = By.cssSelector("div.block_content a[title*='blouses']");
+	
+	//------------------------------dropdowns
+	private static final By sortByDropdown = By.cssSelector("select#selectProductSort");
+	private static final int cheapest = 1;
+	private static final int mostExpensive = 2;
+	
+	//------------------------------features - checkboxes
+	//--Sizes
+	private static final By sizeS = By.cssSelector("input#layered_id_attribute_group_1[value='1_1']");
+	private static final By sizeM = By.cssSelector("input#layered_id_attribute_group_2[value='2_1']");
+	private static final By sizeL = By.cssSelector("input#layered_id_attribute_group_3[value='3_1']");
+	//--Colors
+	private static final By orangeColor = By.cssSelector("input#layered_id_attribute_group_13[rel='13_3']");
+	private static final By blueColor = By.cssSelector("input#layered_id_attribute_group_14[rel='14_3']");
+	private static final By beigeColor = By.cssSelector("input#layered_id_attribute_group_7[7_3]");
+	private static final By pinkColor = By.cssSelector("input#layered_id_attribute_group_24[24_3]");
+	//--Compositions
+	private static final By cotton = By.cssSelector("input#layered_id_feature_5[value='5_5']");
+	//--Styles
+	private static final By casualStyle = By.cssSelector("input#layered_id_feature_11[value='11_6']");
+	private static final By girlyStyle = By.cssSelector("input#layered_id_feature_13[value='13_6']");
+	//--Properties
+	private static final By shortSleeve = By.cssSelector("input#layered_id_feature_17[value='17_7']");
+	private static final By colorfulDress = By.cssSelector("input#layered_id_feature_18[value='18_7']");
+	//--Availability
+	private static final By inStock = By.cssSelector("input#layered_quantity_1[value='1']");
+	//--Manufacturer
+	private static final By manufacturer = By.cssSelector("input#layered_manufacturer_1[value='1']");
+	//--Condition
+	private static final By condition = By.cssSelector("input#layered_condition_new[value='new']");
+	//--
 
 	public PurchasePage() {
 		super();
